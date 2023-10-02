@@ -100,15 +100,29 @@ class _ProjectSectionCardState extends State<ProjectSectionCard> {
   bool ishover = false;
   @override
   Widget build(BuildContext context) {
+    var cardBorderRadius = const BorderRadius.all(Radius.circular(10));
     return InkWell(
       onTap: () {},
       onHover: (value) => setState(() => ishover = value),
-      child: Container(
+      borderRadius: cardBorderRadius,
+      child: AnimatedContainer(
+        curve: Curves.linear,
+        duration: const Duration(milliseconds: 500),
         padding: const EdgeInsets.all(defaultPadding),
-        color: ishover ? primaryColor : secondaryColor,
+        decoration: BoxDecoration(
+          color: ishover ? primaryColor : secondaryColor,
+          borderRadius: cardBorderRadius,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Image.asset(
+              "assets/images/neurocare_project_image.png",
+              width: double.infinity,
+              height: 200,
+              fit: BoxFit.cover,
+            ),
+            const SizedBox(height: defaultPadding / 2),
             Text(
               widget.myProject.title.toString(),
               maxLines: 2,
