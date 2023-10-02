@@ -26,8 +26,8 @@ class HomeScreen extends StatelessWidget {
         MyServices(),
         SizedBox(height: defaultPadding),
         MyProjectsSection(),
-        SizedBox(height: defaultPadding),
-        MyProjects(),
+        // SizedBox(height: defaultPadding),
+        // MyProjects(),
         SizedBox(height: defaultPadding),
         Recommendations(),
         SizedBox(height: defaultPadding),
@@ -36,6 +36,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
+// My Project Section
 class MyProjectsSection extends StatelessWidget {
   const MyProjectsSection({super.key});
 
@@ -132,7 +133,7 @@ class _ProjectSectionCardState extends State<ProjectSectionCard> {
             const SizedBox(height: defaultPadding / 2),
             Text(
               widget.myProject.description.toString(),
-              maxLines: 4,
+              maxLines: 3,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                   height: 1.5, color: ishover ? const Color(0xffFFFFFF) : null),
