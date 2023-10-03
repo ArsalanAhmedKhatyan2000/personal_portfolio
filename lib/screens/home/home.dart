@@ -70,7 +70,7 @@ class MyProjectsSectionGridView extends StatelessWidget {
             spacing: defaultPadding,
             runSpacing: defaultPadding,
             children: List.generate(demo_projects.length, (index) {
-              Project myProject = demo_projects[index];
+              Project project = demo_projects[index];
               return SizedBox(
                 width: Responsive.isMobile(context) ||
                         Responsive.isMobileLarge(context)
@@ -78,7 +78,7 @@ class MyProjectsSectionGridView extends StatelessWidget {
                     : Responsive.isTablet(context)
                         ? (boxConstraints.maxWidth - defaultPadding) / 2
                         : (boxConstraints.maxWidth - defaultPadding * 2) / 3,
-                child: ProjectSectionCard(myProject: myProject),
+                child: ProjectSectionCard(project: project),
               );
             }),
           ),
@@ -89,9 +89,8 @@ class MyProjectsSectionGridView extends StatelessWidget {
 }
 
 class ProjectSectionCard extends StatefulWidget {
-  final Project myProject;
-  const ProjectSectionCard({Key? key, required this.myProject})
-      : super(key: key);
+  final Project project;
+  const ProjectSectionCard({Key? key, required this.project}) : super(key: key);
 
   @override
   State<ProjectSectionCard> createState() => _ProjectSectionCardState();
@@ -103,7 +102,14 @@ class _ProjectSectionCardState extends State<ProjectSectionCard> {
   Widget build(BuildContext context) {
     var cardBorderRadius = const BorderRadius.all(Radius.circular(10));
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return ProjectDetailsDialog(project: widget.project);
+          },
+        );
+      },
       onHover: (value) => setState(() => ishover = value),
       borderRadius: cardBorderRadius,
       child: AnimatedContainer(
@@ -118,21 +124,21 @@ class _ProjectSectionCardState extends State<ProjectSectionCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.asset(
-              "assets/images/neurocare_project_image.png",
+              widget.project.imageURL.toString(),
               width: double.infinity,
               height: 200,
               fit: BoxFit.cover,
             ),
             const SizedBox(height: defaultPadding / 2),
             Text(
-              widget.myProject.title.toString(),
+              widget.project.title.toString(),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.subtitle2,
             ),
             const SizedBox(height: defaultPadding / 2),
             Text(
-              widget.myProject.description.toString(),
+              widget.project.description.toString(),
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
@@ -141,6 +147,58 @@ class _ProjectSectionCardState extends State<ProjectSectionCard> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ProjectDetailsDialog extends StatelessWidget {
+  final Project project;
+  const ProjectDetailsDialog({Key? key, required this.project})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    double dialogWidth = MediaQuery.of(context).size.width * 0.5;
+    return LayoutBuilder(
+      builder: (context, boxConstraints) {
+        var dialogBorderRadius = const BorderRadius.all(Radius.circular(10));
+        return Dialog(
+          backgroundColor: secondaryColor,
+          shape: RoundedRectangleBorder(borderRadius: dialogBorderRadius),
+          child: SingleChildScrollView(
+            child: Container(
+              width: boxConstraints.maxWidth * 0.5,
+              padding: const EdgeInsets.all(defaultPadding),
+              decoration: BoxDecoration(
+                borderRadius: dialogBorderRadius,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  AspectRatio(
+                    aspectRatio: 2.5,
+                    child: Image.asset(project.imageURL.toString(),
+                        fit: BoxFit.contain),
+                  ),
+                  const SizedBox(height: defaultPadding / 2),
+                  Text(
+                    project.title.toString(),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                        fontSize: Responsive.isDesktop(context) ? 24 : 20),
+                  ),
+                  const SizedBox(height: defaultPadding / 2),
+                  Text(
+                    project.description.toString(),
+                    style: const TextStyle(height: 1.5),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
