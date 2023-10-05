@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:personal_portfolio/models/project.dart';
 import 'package:personal_portfolio/screens/home/components/recommendations.dart';
 import 'package:personal_portfolio/screens/main/main_screen.dart';
@@ -189,17 +190,15 @@ class _ProjectDetailsDialogState extends State<ProjectDetailsDialog> {
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      // AspectRatio(
-                      //   aspectRatio: 1.9, // 2.5
-                      //   child: Image.asset(project.imageURL.toString(),
-                      //       fit: BoxFit.cover),
-                      // ),
                       CarouselSlider(
                           items: widget.project.imageUrlList?.map((imageURL) {
                             return Image.asset(imageURL.toString());
                           }).toList(),
                           options: CarouselOptions(
-                            height: 250,
+                            height: Responsive.isMobile(context) ||
+                                    Responsive.isMobileLarge(context)
+                                ? 150
+                                : 250,
                             aspectRatio: 16 / 9,
                             viewportFraction: 0.8,
                             initialPage: 0,
@@ -242,7 +241,8 @@ class _ProjectDetailsDialogState extends State<ProjectDetailsDialog> {
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                            fontSize: Responsive.isDesktop(context) ? 24 : 20),
+                            fontSize:
+                                Responsive.isDesktop(context) ? 24 : null),
                       ),
                       const SizedBox(height: defaultPadding / 2),
                       Text(
@@ -251,13 +251,22 @@ class _ProjectDetailsDialogState extends State<ProjectDetailsDialog> {
                       ),
                       const SizedBox(height: defaultPadding / 2),
                       QrImage(
-                        data:
-                            'https://drive.google.com/file/d/1SgZIupzSlibYt1r19yi0ULFWmydPDrip/view?usp=sharing',
+                        data: widget.project.appInstallationUrl.toString(),
                         version: QrVersions.auto,
                         size: 100,
                         gapless: false,
+                        errorCorrectionLevel: QrErrorCorrectLevel.H,
                         backgroundColor: bgColor,
                         foregroundColor: const Color(0xffFFFFFF),
+                        embeddedImage:
+                            const AssetImage('assets/icons/android_icon.png'),
+                        embeddedImageStyle:
+                            QrEmbeddedImageStyle(size: const Size(25, 25)),
+                      ),
+                      const SizedBox(height: defaultPadding / 2),
+                      const Text(
+                        "You can install the application easily by scaning the QR Code in order to review the application.",
+                        style: TextStyle(height: 1.5),
                       ),
                     ],
                   ),

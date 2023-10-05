@@ -1,8 +1,13 @@
 class Project {
-  final String? title, description;
+  final String? title, description, appInstallationUrl;
   final List<String>? imageUrlList;
 
-  Project({this.title, this.description, this.imageUrlList});
+  Project({
+    this.title,
+    this.description,
+    this.imageUrlList,
+    this.appInstallationUrl,
+  });
 }
 
 List<Project> demo_projects = [
@@ -46,6 +51,8 @@ List<Project> demo_projects = [
       "assets/images/neurocare_project_image.png",
       "assets/images/neurocare_project_image.png"
     ],
+    appInstallationUrl:
+        "https://drive.google.com/file/d/1SgZIupzSlibYt1r19yi0ULFWmydPDrip/view?usp=sharing",
   ),
   Project(
     title: "Aqua Meals (E-Commerce Mobile Application)",
@@ -56,6 +63,8 @@ List<Project> demo_projects = [
       "assets/images/neurocare_project_image.png",
       "assets/images/neurocare_project_image.png",
     ],
+    appInstallationUrl:
+        "https://drive.google.com/file/d/1SgZIupzSlibYt1r19yi0ULFWmydPDrip/view?usp=sharing",
   ),
   Project(
     title: "Blogs Area (Blogging Mobile Application)",
@@ -68,5 +77,7 @@ List<Project> demo_projects = [
       "assets/images/neurocare_project_image.png",
       "assets/images/neurocare_project_image.png",
     ],
+    appInstallationUrl:
+        "https://drive.google.com/file/d/1SgZIupzSlibYt1r19yi0ULFWmydPDrip/view?usp=sharing",
   ),
 ];
