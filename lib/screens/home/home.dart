@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:personal_portfolio/models/project.dart';
 import 'package:personal_portfolio/screens/home/components/recommendations.dart';
 import 'package:personal_portfolio/screens/main/main_screen.dart';
@@ -22,6 +21,7 @@ class HomeScreen extends StatelessWidget {
         HomeBanner(),
         SizedBox(height: defaultPadding),
         HighLightInfo(),
+
         SizedBox(height: defaultPadding),
         EducationAndCertifications(),
         SizedBox(height: defaultPadding),
