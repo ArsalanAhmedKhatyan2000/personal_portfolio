@@ -10,7 +10,7 @@ class Project {
   });
 }
 
-List<Project> demo_projects = [
+List<Project> demoProjects = [
   // Project(
   //   title: "Responsive Admin Panel or Dashboard - Flutter UI",
   //   description:

@@ -71,8 +71,8 @@ class MyProjectsSectionGridView extends StatelessWidget {
             direction: Axis.horizontal,
             spacing: defaultPadding,
             runSpacing: defaultPadding,
-            children: List.generate(demo_projects.length, (index) {
-              Project project = demo_projects[index];
+            children: List.generate(demoProjects.length, (index) {
+              Project project = demoProjects[index];
               return SizedBox(
                 width: Responsive.isMobile(context) ||
                         Responsive.isMobileLarge(context)
